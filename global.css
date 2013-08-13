@@ -1,0 +1,8 @@
+body { background-color: #000; }
+#videoDiv { margin-right: 3px; }
+#videoInfo {
+    display: none;
+    margin-left: 3px;
+    color: #fff;
+}
+a { color: #fff; }
