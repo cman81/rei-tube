@@ -1,0 +1,74 @@
+# ************************************************************
+# Sequel Pro SQL dump
+# Version 4096
+#
+# http://www.sequelpro.com/
+# http://code.google.com/p/sequel-pro/
+#
+# Host: 127.0.0.1 (MySQL 5.5.9-log)
+# Database: reitube
+# Generation Time: 2013-08-14 19:56:51 +0000
+# ************************************************************
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+# Dump of table playlist
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `playlist`;
+
+CREATE TABLE `playlist` (
+  `youtube_vid` varchar(32) NOT NULL DEFAULT '',
+  `volume` int(3) DEFAULT NULL,
+  `start_seconds` int(11) DEFAULT NULL,
+  `end_seconds` int(11) DEFAULT NULL,
+  `publish_date` datetime DEFAULT NULL,
+  `last_played_date` datetime DEFAULT NULL,
+  `retire_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`youtube_vid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `playlist` WRITE;
+/*!40000 ALTER TABLE `playlist` DISABLE KEYS */;
+
+INSERT INTO `playlist` (`youtube_vid`, `volume`, `start_seconds`, `end_seconds`, `publish_date`, `last_played_date`, `retire_date`)
+VALUES
+	('1fouvwilGWc',NULL,NULL,154,NULL,'2013-08-14 15:01:41',NULL),
+	('1n5uFGk2pnc',NULL,NULL,NULL,NULL,'2013-08-14 15:33:45',NULL),
+	('3gG0EdO7QSI',NULL,NULL,NULL,NULL,NULL,NULL),
+	('BdHK_r9RXTc',NULL,NULL,NULL,NULL,'2013-08-14 15:31:19',NULL),
+	('Ef2wnLL1s00',NULL,NULL,NULL,NULL,'2013-08-14 15:04:05',NULL),
+	('FGXDKrUoVrw',NULL,NULL,NULL,NULL,NULL,NULL),
+	('GXy__kBVq1M',NULL,NULL,NULL,NULL,'2013-08-14 15:03:29',NULL),
+	('isPj5KgpVqg',NULL,NULL,NULL,NULL,'2013-08-14 15:36:37',NULL),
+	('JnfBXjWm7hc',NULL,NULL,NULL,NULL,'2013-08-14 15:35:38',NULL),
+	('KTCQpjUrCe8',NULL,NULL,NULL,NULL,'2013-08-14 15:33:39',NULL),
+	('l-gQLqv9f4o',NULL,NULL,NULL,NULL,'2013-08-14 15:36:12',NULL),
+	('ne6tB2KiZuk',NULL,NULL,NULL,NULL,'2013-08-14 15:35:22',NULL),
+	('qX9FSZJu448',NULL,NULL,NULL,NULL,'2013-08-14 15:36:09',NULL),
+	('u6XAPnuFjJc',NULL,NULL,NULL,NULL,NULL,NULL),
+	('VTz5MtxrDTA',NULL,NULL,NULL,NULL,NULL,NULL),
+	('Y3LRf2DqwZA',NULL,72,170,NULL,'2013-08-14 15:31:24',NULL),
+	('ZaiO0a54f5Y',NULL,NULL,NULL,NULL,'2013-08-14 15:03:58',NULL),
+	('zNdJiW2rDXk',NULL,NULL,NULL,NULL,'2013-08-14 15:36:01',NULL),
+	('ZZSDkRxS0Uk',NULL,NULL,244,NULL,'2013-08-14 15:35:42',NULL);
+
+/*!40000 ALTER TABLE `playlist` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
