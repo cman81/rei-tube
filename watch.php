@@ -1,4 +1,5 @@
 <?php
+    include_once('util.inc');
     define('DEFAULT_START', 0);
     define('DEFAULT_END', 0);
     define('DEFAULT_VOLUME', 50);
@@ -26,7 +27,11 @@
 
     $playlist = array();
     while($row = mysqli_fetch_array($result)) {
-        $playlist[] = $row;
+        if ($_GET['debug'] == '1') {
+            $playlist[] = $row;
+        } elseif (integer_hash($row['youtube_vid'], 1, 5) == date('N')) {
+            $playlist[] = $row;
+        }
     }
     $playlist = array_chunk($playlist, floor(count($playlist) / 2));
     $playlist = $playlist[0];
