@@ -4,6 +4,14 @@
     define('DEFAULT_END', 0);
     define('DEFAULT_VOLUME', 50);
 
+    // presentation mode by default
+    $this_width = 1280;
+    $this_height = 720;
+    if ($GET['small'] == '1') {
+        $this_width = 640;
+        $this_height = 360;
+    }
+
     // grab a subset of videos to pick from:
     // sort videos by least recently played, take the top half, then randomly select.
 // TODO: this is not a secure, password is stored in this file
@@ -27,7 +35,7 @@
 
     $playlist = array();
     while($row = mysqli_fetch_array($result)) {
-        if ($_GET['debug'] == '1') {
+        if ($_GET['all_vids'] == '1') {
             $playlist[] = $row;
         } elseif (integer_hash($row['youtube_vid'], 1, 5) == date('N')) {
             $playlist[] = $row;
@@ -71,13 +79,20 @@ Apache license (http://www.apache.org/licenses/LICENSE-2.0.html)
     <link rel="stylesheet" type="text/css" href="reset.css">
     <link rel="stylesheet" type="text/css" href="global.css">
     <?php if ($_GET['debug'] == '1'): ?>
-        <style>
+        <style type="text/css">
             #videoInfo { display: inherit; }
         </style>
     <?php endif; ?>
+    <style type="text/css">
+        .videoContainer {
+            width: <?= $this_width ?>px;
+            height: <?= $this_height ?>px;
+        }
+    </style>
     <script src="//www.google.com/jsapi" type="text/javascript"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="global.js"></script>
+    <script src="vAlignPlugin.js"></script>
     <script type="text/javascript">
         google.load("swfobject", "2.1");
     </script>
@@ -192,36 +207,26 @@ Apache license (http://www.apache.org/licenses/LICENSE-2.0.html)
             // All of the magic handled by SWFObject (http://code.google.com/p/swfobject/)
             swfobject.embedSWF("http://www.youtube.com/apiplayer?" +
                 "version=3&enablejsapi=1&playerapiid=player1",
-                "videoDiv", "640", "360", "9", null, null, params, atts);
+                "videoDiv", "<?= $this_width ?>", "<?= $this_height ?>", "9", null, null, params, atts);
         }
         function _run() {
             loadPlayer();
         }
         google.setOnLoadCallback(_run);
-
-        function fullscreen() {
-            var el = document.getElementById('ytPlayer');
-            if (el.requestFullScreen) {
-                el.requestFullScreen();
-            } else if (el.mozRequestFullScreen) {
-                el.mozRequestFullScreen();
-            } else if (el.webkitRequestFullScreen) {
-                el.webkitRequestFullScreen();
-            }
-        }
     </script>
 </head>
 <body style="font-family: Arial;border: 0 none;">
-<div id="videoDiv">Loading...</div>
-<a href="javascript:void(0);" onclick="fullscreen();">Fullscreen</a>
-    <div id="videoInfo">
-        <p>VID: <?= $youtube_vid ?></p>
-        <p>Quality: <span id="videoQuality">--</span></p>
-        <p>Player state: <span id="playerState">--</span></p>
-        <p>Current Time: <span id="videoCurrentTime">--:--</span> | Duration: <span id="videoDuration">--:--</span></p>
-        <p>Bytes Total: <span id="bytesTotal">--</span> | Start Bytes: <span id="startBytes">--</span> | Bytes Loaded: <span id="bytesLoaded">--</span></p>
-        <p>Controls: <a href="javascript:void(0);" onclick="playVideo();">Play</a> | <a href="javascript:void(0);" onclick="pauseVideo();">Pause</a> | <a href="javascript:void(0);" onclick="muteVideo();">Mute</a> | <a href="javascript:void(0);" onclick="unMuteVideo();">Unmute</a></p>
-        <p><input id="volumeSetting" type="text" size="3" />&nbsp;<a href="javascript:void(0)" onclick="setVideoVolume();">&lt;- Set Volume</a> | Volume: <span id="volume">--</span></p>
-    </div>
+<div class="videoContainer">
+    <div id="videoDiv">Loading...</div>
+</div>
+<div id="videoInfo">
+    <p>VID: <?= $youtube_vid ?></p>
+    <p>Quality: <span id="videoQuality">--</span></p>
+    <p>Player state: <span id="playerState">--</span></p>
+    <p>Current Time: <span id="videoCurrentTime">--:--</span> | Duration: <span id="videoDuration">--:--</span></p>
+    <p>Bytes Total: <span id="bytesTotal">--</span> | Start Bytes: <span id="startBytes">--</span> | Bytes Loaded: <span id="bytesLoaded">--</span></p>
+    <p>Controls: <a href="javascript:void(0);" onclick="playVideo();">Play</a> | <a href="javascript:void(0);" onclick="pauseVideo();">Pause</a> | <a href="javascript:void(0);" onclick="muteVideo();">Mute</a> | <a href="javascript:void(0);" onclick="unMuteVideo();">Unmute</a></p>
+    <p><input id="volumeSetting" type="text" size="3" />&nbsp;<a href="javascript:void(0)" onclick="setVideoVolume();">&lt;- Set Volume</a> | Volume: <span id="volume">--</span></p>
+</div>
 </body>
 </html>

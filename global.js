@@ -11,3 +11,9 @@ jQuery(document).ready(function() {
 
     });
 });
+
+jQuery(document).load(function() {
+    jQuery(function ($) {
+
+    });
+});
