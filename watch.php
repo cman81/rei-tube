@@ -2,7 +2,7 @@
     include_once('util.inc');
     define('DEFAULT_START', 0);
     define('DEFAULT_END', 0);
-    define('DEFAULT_VOLUME', 50);
+    define('DEFAULT_VOLUME', 25);
 
     // presentation mode by default
     $this_width = 1280;
@@ -11,6 +11,13 @@
         $this_width = 640;
         $this_height = 360;
     }
+
+    // sorting buckets: lower number means allows more videos to be played on a given day
+    // examples:
+    // 1: 1 bucket = every video played every day
+    // 5: videos split into 5 buckets, ideal for weekdays (Mon - Fri)
+    // 7: videos split into 7 buckets, ideal for daily viewing (Mon - Sun)
+    $sorting_buckets = 5;
 
     // grab a subset of videos to pick from:
     // sort videos by least recently played, take the top half, then randomly select.
@@ -37,7 +44,7 @@
     while($row = mysqli_fetch_array($result)) {
         if ($_GET['all_vids'] == '1') {
             $playlist[] = $row;
-        } elseif (integer_hash($row['youtube_vid'], 1, 5) == date('N')) {
+        } elseif (integer_hash($row['youtube_vid'], 1, 7) % $sorting_buckets == date('N') % $sorting_buckets) {
             $playlist[] = $row;
         }
     }
