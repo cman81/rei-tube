@@ -7,7 +7,7 @@
     // presentation mode by default
     $this_width = 1280;
     $this_height = 720;
-    if ($GET['small'] == '1') {
+    if ($_GET['small'] == '1') {
         $this_width = 640;
         $this_height = 360;
     }
